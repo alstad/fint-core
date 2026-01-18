@@ -26,4 +26,4 @@ plugins {
 include(":app")
 include(":utils")
 
-rootProject.name = "fint-core-v3"
+rootProject.name = "fint-core"
