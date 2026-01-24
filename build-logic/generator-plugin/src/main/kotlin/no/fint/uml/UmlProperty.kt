@@ -22,4 +22,10 @@ data class UmlProperty(
         if (value.isNullOrBlank()) return
         documentation = if (documentation.isNullOrBlank()) value else "${documentation}\n\n$value"
     }
+
+    fun isMany(): Boolean = upper == "*" || upper == "-1"
+
+    fun isRequired(): Boolean = lower == "1"
+
+    fun isNullable(): Boolean = !isRequired()
 }

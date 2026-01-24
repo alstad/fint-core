@@ -5,6 +5,16 @@
 
 pluginManagement {
     includeBuild("build-logic")
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    plugins {
+        id("org.jetbrains.kotlin.jvm") version "2.3.0"
+        id("org.jetbrains.kotlin.plugin.serialization") version "2.3.0"
+        id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
+        id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
+    }
 }
 
 dependencyResolutionManagement {
@@ -15,9 +25,10 @@ dependencyResolutionManagement {
     }
 }
 
-plugins {
-    // Use the Foojay Toolchains plugin to automatically download JDKs required by subprojects.
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+val enableFoojayResolver =
+    providers.gradleProperty("enableFoojayResolver").orNull?.toBoolean() ?: false
+if (enableFoojayResolver) {
+    apply(plugin = "org.gradle.toolchains.foojay-resolver-convention")
 }
 
 // Include the `app` and `utils` subprojects in the build.

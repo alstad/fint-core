@@ -5,6 +5,7 @@ data class UmlClass(
     var name: String,
     var packagePath: List<String> = emptyList(),
     var deprecated: Boolean = false,
+    var abstract: Boolean = false,
     var deprecationMessage: String? = null,
     val properties: MutableList<UmlProperty> = mutableListOf(),
     var generalizationId: String? = null,
@@ -17,4 +18,6 @@ data class UmlClass(
         if (value.isNullOrBlank()) return
         documentation = if (documentation.isNullOrBlank()) value else "${documentation}\n\n$value"
     }
+
+    fun complexDatatype(): Boolean = !stereotypes.contains("hovedklasse") && !abstract
 }

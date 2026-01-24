@@ -61,8 +61,14 @@ class UmlParser {
                                         val id = xml.attr("id", XMI_NS)
                                         if (!id.isNullOrBlank()) {
                                             val name = xml.attr("name") ?: "Unnamed"
+                                            val isAbstract = xml.attr("isAbstract")?.trim()?.equals("true", ignoreCase = true) == true
                                             val packagePath = packageStack.lastOrNull()?.second ?: emptyList()
-                                            val umlClass = UmlClass(id = id, name = name, packagePath = packagePath)
+                                            val umlClass = UmlClass(
+                                                id = id,
+                                                name = name,
+                                                packagePath = packagePath,
+                                                abstract = isAbstract
+                                            )
                                             model.classes[id] = umlClass
                                             currentClassId = id
                                         }
